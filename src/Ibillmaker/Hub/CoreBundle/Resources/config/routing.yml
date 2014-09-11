@@ -1,0 +1,3 @@
+ibillmaker_hub_core_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: IbillmakerHubCoreBundle:Default:index }

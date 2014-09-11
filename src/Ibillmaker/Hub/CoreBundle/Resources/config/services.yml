@@ -1,0 +1,22 @@
+parameters:
+    ibillmaker_hub_core.user.provider.class: Ibillmaker\Hub\CoreBundle\Security\UserProvider
+    ibillmaker_hub_core.user.repository.class: Ibillmaker\Hub\CoreBundle\Security\UserRepository
+    ibillmaker_hub_core.router.provider.class: Ibillmaker\Hub\CoreBundle\Repository\RouterProvider
+    ibillmaker_hub_core.form.type.class: Ibillmaker\Hub\CoreBundle\Form\Type\RegistrationFormType    
+    ibillmaker_hub_core.user.entity.class: Ibillmaker\Hub\CoreBundle\Entity\User
+    
+
+services:
+    ibillmaker_hub_core_user_provider:
+        class: %ibillmaker_hub_core.user.provider.class%
+        arguments: ["@service_container"]
+        
+    sylius.user.registration.form.type:
+        class: %ibillmaker_hub_core.form.type.class%
+        tags: 
+             -  { name: form.type , alias : sylius_user_registration}
+        arguments: [%ibillmaker_hub_core.user.entity.class%]
+        
+    ibillmaker_hub_core_route_provider:
+        class: %ibillmaker_hub_core.router.provider.class%
+        

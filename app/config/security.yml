@@ -14,15 +14,15 @@ security:
             pattern:     /administration/.*
             form_login:
                 provider:     fos_userbundle
-                login_path:   /administration/login
-                check_path:   /administration/login-check
-                failure_path: /administration/login
-                default_target_path: /administration/dashboard
+                login_path:   fos_user_security_login
+                check_path:   fos_user_security_check
+                failure_path: fos_user_security_login
+                default_target_path: sylius_backend_dashboard
                 use_forward:  false
                 use_referer:  true
             logout:
-                path:   /administration/logout
-                target: /administration/login
+                path:   fos_user_security_logout
+                target: fos_user_security_login
             anonymous: true
 
         main:
@@ -31,10 +31,10 @@ security:
             pattern:     /.*
             form_login:
                 provider: fos_userbundle
-                login_path: /login
-                check_path: /login_check
-                failure_path: /login
-                default_target_path: /
+                login_path: fos_user_security_login
+                check_path: fos_user_security_check
+                failure_path: fos_user_security_login              
+                default_target_path: sylius_backend_dashboard
                 use_forward:  false
                 use_referer: true
             remember_me:
@@ -52,7 +52,10 @@ security:
                 failure_path: /connect
                 oauth_user_provider:
                     service: sylius.oauth.user_provider
-            logout: true
+            logout:
+                path:   fos_user_security_logout
+                target: fos_user_security_login
+        
             anonymous: true
 
         dev:
@@ -60,15 +63,16 @@ security:
             security: false
 
     access_control:
-        - { path: ^/login.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/connect.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: "/login.*", role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: "/connect.*", role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: "/register", role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: "/resetting", role: IS_AUTHENTICATED_ANONYMOUSLY }
 
-        - { path: ^/administration/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/administration/login-check, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: "/administration/login", role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: "/administration/login-check", role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: "/administration.*", role: ROLE_SYLIUS_ADMIN }
 
         - { path: "/account.*", role: ROLE_USER }
+        - { path: "/account.*", role: ROLE_SYLIUS_ADMIN }
 
         - { path: "/_partial.*", ip: 127.0.0.1 }

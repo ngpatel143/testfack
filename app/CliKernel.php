@@ -19,7 +19,8 @@ class CliKernel extends AppKernel
         $bundles = array(
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
-            new Sylius\Bundle\FixturesBundle\SyliusFixturesBundle(),
+            new Sylius\Bundle\FixturesBundle\SyliusFixturesBundle()
+            
         );
 
         return array_merge(parent::registerBundles(), $bundles);

@@ -32,7 +32,8 @@
         "liip/doctrine-cache-bundle":           "@dev",
         "mathiasverraes/money":                 "@dev",
         "pagerfanta/pagerfanta":                "@dev",
-        "white-october/pagerfanta-bundle":      "@dev"
+        "white-october/pagerfanta-bundle":      "@dev",
+        "sensio/generator-bundle":              "2.3.*@dev"
     },
     "require-dev": {
         "behat/behat":                       "~3.0",

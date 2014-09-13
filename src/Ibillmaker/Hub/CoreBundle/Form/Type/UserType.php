@@ -14,8 +14,8 @@ class UserType extends BaseUserType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
-        $builder->add('companyId', 'text', array('required' => true));
-        $builder->add('companyName', 'text', array('required' => true));
+//        $builder->add('companyId', 'text', array('required' => true));
+//        $builder->add('companyName', 'text', array('required' => true));
     }
     
 }

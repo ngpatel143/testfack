@@ -15,6 +15,12 @@ class ModifyRepositoryPass implements CompilerPassInterface
                 new Reference('security.context'),
             ))
         ;
+        $container
+            ->findDefinition('sylius.repository.product')
+            ->addMethodCall('setUserViaSecurityContext', array(
+                new Reference('security.context'),
+            ))
+        ;
     }
 }
 

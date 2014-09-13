@@ -7,13 +7,20 @@
 
     <mapped-superclass name="Ibillmaker\Hub\CoreBundle\Entity\Product" table="sylius_product">
                        
-        <field name="adminId" column="adminId" type="integer" length="11" nullable="true" />
-        
+      <!--  <field name="adminId" column="adminId" type="integer" length="11" nullable="true" />
+      --> 
         <many-to-one field="user" target-entity="Ibillmaker\Hub\CoreBundle\Entity\User">
             <cascade>
                 <cascade-all/>
             </cascade>
             <join-column name="userId" referenced-column-name="id" nullable="true" />
+        </many-to-one>
+        
+        <many-to-one field="admin" target-entity="Ibillmaker\Hub\CoreBundle\Entity\User">
+            <cascade>
+                <cascade-all/>
+            </cascade>
+            <join-column name="adminId" referenced-column-name="id" nullable="true" />
         </many-to-one>
         
     </mapped-superclass>

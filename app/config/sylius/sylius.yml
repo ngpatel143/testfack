@@ -56,7 +56,7 @@ sylius_product:
         product:
             model: Ibillmaker\Hub\CoreBundle\Entity\Product
             controller: Ibillmaker\Hub\CoreBundle\Controller\ProductController
-            repository: Sylius\Bundle\CoreBundle\Doctrine\ORM\ProductRepository
+            repository: Ibillmaker\Hub\CoreBundle\Repository\ProductRepository
             form: Sylius\Bundle\CoreBundle\Form\Type\ProductType
 
 sylius_attribute: ~
@@ -140,7 +140,7 @@ sylius_resource:
         sylius.group:
             driver: doctrine/orm
             classes:
-                model: Sylius\Bundle\CoreBundle\Model\Group
+                model: Sylius\Component\Core\Model\Group
         sylius.locale:
             driver: doctrine/orm
             classes:

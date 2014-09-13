@@ -1,12 +1,13 @@
 <?php
 
-namespace Ibillmaker\Hub\CoreBundle\Entity;
+    namespace Ibillmaker\Hub\CoreBundle\Entity;
 
-use Sylius\Component\Product\Model\Product as BaseProduct;
+use Sylius\Component\Core\Model\Product as BaseProduct;
 use Sylius\Component\Core\Model\UserInterface;
+
 class Product extends BaseProduct {
 
-    protected $adminId;
+    protected $admin;
     protected $user;
 
     public function __construct() 
@@ -15,14 +16,14 @@ class Product extends BaseProduct {
     }
 
     
-    public function getAdminId()
+    public function getAdmin()
     {
-        return $this->adminId;
+        return $this->admin;
     }
     
-    public function setAdminId($adminId)
+    public function setAdmin(UserInterface $admin)
     {
-     $this->adminId = $adminId;
+     $this->admin = $admin;
      return $this;
     }
     

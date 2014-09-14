@@ -671,7 +671,7 @@ sylius:
     user:
         billing_address: Billing address
         create: create user
-        create_header: New user
+        create_header: New Contact
         email: E-Mail
         enabled: Confirmed?
         filter:

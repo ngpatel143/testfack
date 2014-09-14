@@ -2,7 +2,7 @@ sylius:
     backend:
         menu:
             main:
-                assortment: Assortment
+                pmanagement: Products Management
                 configuration: Configuration
                 countries: Countries
                 customer: Customers
@@ -38,7 +38,7 @@ sylius:
                 staffs: Staffs
                 zones: Zones
             sidebar:
-                assortment: Assortment
+                pmanagement: Products
                 blocks: Blocks
                 configuration: Configuration
                 content: Content

@@ -109,14 +109,14 @@ class BackendMenuBuilder extends BaseBackendMenuBuilder
     protected function addAssortmentMenu(ItemInterface $menu, array $childOptions, $section)
     {
         $child = $menu
-            ->addChild('assortment', $childOptions)
-            ->setLabel($this->translate(sprintf('sylius.backend.menu.%s.assortment', $section)))
+            ->addChild('pmanagement', $childOptions)
+            ->setLabel($this->translate(sprintf('sylius.backend.menu.%s.pmanagement', $section)))
         ;
 
-        $child->addChild('taxonomies', array(
-            'route' => 'sylius_backend_taxonomy_index',
-            'labelAttributes' => array('icon' => 'glyphicon glyphicon-folder-close'),
-        ))->setLabel($this->translate(sprintf('sylius.backend.menu.%s.taxonomies', $section)));
+//        $child->addChild('taxonomies', array(
+//            'route' => 'sylius_backend_taxonomy_index',
+//            'labelAttributes' => array('icon' => 'glyphicon glyphicon-folder-close'),
+//        ))->setLabel($this->translate(sprintf('sylius.backend.menu.%s.taxonomies', $section)));
 
         $child->addChild('products', array(
             'route' => 'sylius_backend_product_index',
@@ -127,21 +127,21 @@ class BackendMenuBuilder extends BaseBackendMenuBuilder
             'route' => 'sylius_backend_inventory_index',
             'labelAttributes' => array('icon' => 'glyphicon glyphicon-tasks'),
         ))->setLabel($this->translate(sprintf('sylius.backend.menu.%s.stockables', $section)));
-
-        $child->addChild('options', array(
-            'route' => 'sylius_backend_product_option_index',
-            'labelAttributes' => array('icon' => 'glyphicon glyphicon-th'),
-        ))->setLabel($this->translate(sprintf('sylius.backend.menu.%s.options', $section)));
-
-        $child->addChild('product_attributes', array(
-            'route' => 'sylius_backend_product_attribute_index',
-            'labelAttributes' => array('icon' => 'glyphicon glyphicon-list-alt'),
-        ))->setLabel($this->translate(sprintf('sylius.backend.menu.%s.attributes', $section)));
-
-        $child->addChild('prototypes', array(
-            'route' => 'sylius_backend_product_prototype_index',
-            'labelAttributes' => array('icon' => 'glyphicon glyphicon-compressed'),
-        ))->setLabel($this->translate(sprintf('sylius.backend.menu.%s.prototypes', $section)));
+//
+//        $child->addChild('options', array(
+//            'route' => 'sylius_backend_product_option_index',
+//            'labelAttributes' => array('icon' => 'glyphicon glyphicon-th'),
+//        ))->setLabel($this->translate(sprintf('sylius.backend.menu.%s.options', $section)));
+//
+//        $child->addChild('product_attributes', array(
+//            'route' => 'sylius_backend_product_attribute_index',
+//            'labelAttributes' => array('icon' => 'glyphicon glyphicon-list-alt'),
+//        ))->setLabel($this->translate(sprintf('sylius.backend.menu.%s.attributes', $section)));
+//
+//        $child->addChild('prototypes', array(
+//            'route' => 'sylius_backend_product_prototype_index',
+//            'labelAttributes' => array('icon' => 'glyphicon glyphicon-compressed'),
+//        ))->setLabel($this->translate(sprintf('sylius.backend.menu.%s.prototypes', $section)));
     }
 
     /**
@@ -178,8 +178,8 @@ class BackendMenuBuilder extends BaseBackendMenuBuilder
     protected function addCustomersMenu(ItemInterface $menu, array $childOptions, $section)
     {
         $child = $menu
-            ->addChild('customer', $childOptions)
-            ->setLabel($this->translate(sprintf('sylius.backend.menu.%s.customer', $section)))
+            ->addChild('users', $childOptions)
+            ->setLabel($this->translate(sprintf('sylius.backend.menu.%s.users', $section)))
         ;
 
 //        $child->addChild('users', array(

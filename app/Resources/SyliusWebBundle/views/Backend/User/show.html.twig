@@ -26,6 +26,10 @@
 </div>
 
 
+     {% for group in user.groups %}
+        <h3> {{ group.name }}</h3>
+     {% endfor%}    
+
 <table class="table table-bordered">
     <thead>
         <tr>

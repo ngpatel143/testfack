@@ -45,16 +45,24 @@ class UserRepository extends BaseUserRepository
                     ->andWhere('admin = :admin')
                     ->setParameter('admin', $this->user)
                     ->setParameter('query', '%' . $criteria['query'] . '%')
-
             ;
-        } else {
+        }elseif(isset($criteria['type'])){
+            $queryBuilder
+                   ->innerJoin("o.groups", "g", "WITH", "g.name= :type")
+                    ->innerJoin('o.admin', 'admin')
+                    ->andWhere('admin = :admin')
+                    ->setParameter('admin', $this->user)
+                    ->setParameter('type',  $criteria['type'])->addSelect("g") 
+            ;
+        } 
+        else {
             $queryBuilder
                         ->innerJoin('o.admin', 'admin')
                         ->andWhere('admin = :admin')
                         ->setParameter('admin', $this->adminUser)
                 ;
         }
-
+        
         if (isset($criteria['enabled'])) {
             $queryBuilder
                     ->andWhere('o.enabled = :enabled')

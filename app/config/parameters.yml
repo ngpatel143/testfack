@@ -46,3 +46,4 @@ parameters:
     phpcr_pass: admin
     
     sylius.listener.image_upload.class: Ibillmaker\Hub\CoreBundle\EventListener\ImageUploadListener
+    sylius.menu_builder.backend.class:  Ibillmaker\Hub\CoreBundle\Menu\BackendMenuBuilder

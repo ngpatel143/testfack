@@ -22,52 +22,51 @@
             {% endif %}    
         {% endif %}
     </div>
-    <h1><i class="glyphicon glyphicon-info-sign"></i> {{ 'sylius.user.show_header'|trans|raw }}</h1>
+    {% for group in user.groups %}
+        <h1><i class="glyphicon glyphicon-info-sign"></i> {{ group.name }} DETAILS</h1>
+    {% endfor%}        
 </div>
-
-
-     {% for group in user.groups %}
-        <h3> {{ group.name }}</h3>
-     {% endfor%}    
 
 <table class="table table-bordered">
     <thead>
         <tr>
-            <th colspan="2">{{ 'sylius.user.general_info'|trans({'%username%': user.username}) }}</th>
+            <th colspan="4">{{ 'sylius.user.general_info'|trans({'%username%': user.username}) }}</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td><strong>{{ 'sylius.user.id'|trans }}</strong></td>
             <td>{{ user.id }}</td>
-        </tr>
-        {% if user.firstName %}
-            <tr>
-                <td><strong>{{ 'sylius.user.first_name'|trans }}</strong></td>
-                <td>{{ user.firstName }}</td>
-            </tr>
-        {% endif %}
-        {% if user.lastName %}
-            <tr>
-                <td><strong>{{ 'sylius.user.last_name'|trans }}</strong></td>
-                <td>{{ user.lastName }}</td>
-            </tr>
-        {% endif %}
-        <tr>
-            <td><strong>{{ 'sylius.user.username'|trans }}</strong></td>
-            <td>{{ user.username }}</td>
-        </tr>
-        <tr>
-            <td><strong>{{ 'sylius.user.email'|trans }}</strong></td>
-            <td>{{ user.email }}</td>
-        </tr>
-        <tr>
-            <td><strong>{{ 'sylius.user.enabled'|trans }}</strong></td>
+             <td><strong>{{ 'sylius.user.enabled'|trans }}</strong></td>
             <td>
                 <span class="label label-{{ user.enabled ? 'success' : 'important'}}">
                     {{ user.enabled ? 'sylius.yes'|trans : 'sylius.no'|trans }}
                 </span>
             </td>
+        </tr>
+        <tr>
+        
+        {% if user.firstName %}
+            <td><strong>{{ 'sylius.user.first_name'|trans }}</strong></td>
+            <td>{{ user.firstName }}</td>
+             <td><strong>{{ 'sylius.user.username'|trans }}</strong></td>
+            <td>{{ user.username }}</td>
+        {% endif %}
+        
+        </tr>
+        <tr>
+            {% if user.lastName %}
+           
+                <td><strong>{{ 'sylius.user.last_name'|trans }}</strong></td>
+                <td>{{ user.lastName }}</td>
+            
+            {% endif %}
+           
+            <td><strong>{{ 'sylius.user.email'|trans }}</strong></td>
+            <td>{{ user.email }}</td>
+        </tr>
+        <tr>
+           
         </tr>
         {% if user.lastLogin %}
         <tr>
@@ -92,10 +91,42 @@
         </div>
     {% endif %}
 </div>
-<div class="row">
-    <div class="col-md-12">
-        {% render(url('sylius_backend_order_by_user', app.request.query.all|merge({id: user.id}) )) %}
+<div class="container">
+    <div id="content">
+        <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+            <li class="active"><a href="#red" data-toggle="tab">Contacts</a></li>
+            <li><a href="#orange" data-toggle="tab">Invoices</a></li>
+            <li><a href="#yellow" data-toggle="tab">Estimates</a></li>
+            <li><a href="#green" data-toggle="tab">Purchase Order</a></li>
+            <li><a href="#blue" data-toggle="tab">Expenses</a></li>
+        </ul>
+        <div id="my-tab-content" class="tab-content">
+            <div class="tab-pane active" id="red">
+                <h1>Red</h1>
+                <p>red red red red red red</p>
+            </div>
+            <div class="tab-pane" id="orange">
+                <div class="row">
+                    <div class="col-md-12">
+                        {% render(url('sylius_backend_order_by_user', app.request.query.all|merge({id: user.id}) )) %}
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="yellow">
+                <h1>Yellow</h1>
+                <p>yellow yellow yellow yellow yellow</p>
+            </div>
+            <div class="tab-pane" id="green">
+                <h1>Green</h1>
+                <p>green green green green green</p>
+            </div>
+            <div class="tab-pane" id="blue">
+                <h1>Blue</h1>
+                <p>blue blue blue blue blue</p>
+            </div>
+        </div>
     </div>
 </div>
+
 
 {% endblock %}

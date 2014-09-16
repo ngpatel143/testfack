@@ -27,7 +27,7 @@
     {% endfor%}        
 </div>
 
-<table class="table table-bordered">
+<table class="table table-bordered table-condensed table-hover">
     <thead>
         <tr>
             <th colspan="4">{{ 'sylius.user.general_info'|trans({'%username%': user.username}) }}</th>
@@ -102,8 +102,7 @@
         </ul>
         <div id="my-tab-content" class="tab-content">
             <div class="tab-pane active" id="red">
-                <h1>Red</h1>
-                <p>red red red red red red</p>
+               {% include 'IbillmakerHubCoreBundle:Backend:UserGrid/contact.html.twig'  %}
             </div>
             <div class="tab-pane" id="orange">
                 <div class="row">

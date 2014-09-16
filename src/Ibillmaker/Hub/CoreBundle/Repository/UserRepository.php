@@ -5,18 +5,16 @@ namespace Ibillmaker\Hub\CoreBundle\Repository;
 use Sylius\Bundle\CoreBundle\Doctrine\ORM\UserRepository as BaseUserRepository;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
-class UserRepository extends BaseUserRepository 
-{
+class UserRepository extends BaseUserRepository {
 
     protected $user;
     protected $adminUser;
 
-    public function setUserViaSecurityContext(SecurityContextInterface $securityContext) 
-    {
+    public function setUserViaSecurityContext(SecurityContextInterface $securityContext) {
         $this->user = $securityContext->getToken()->getUser();
         $this->adminUser = $this->user->getAdmin();
-        if ($this->adminUser == NULL) {        
-                $this->adminUser = $this->user;
+        if ($this->adminUser == NULL) {
+            $this->adminUser = $this->user;
         }
     }
 
@@ -28,14 +26,13 @@ class UserRepository extends BaseUserRepository
      *
      * @return PagerfantaInterface
      */
-    public function createFilterPaginator($criteria = array(), $sorting = array(), $deleted = false) 
-    {
+    public function createFilterPaginator($criteria = array(), $sorting = array(), $deleted = false) {
         $queryBuilder = parent::getCollectionQueryBuilder();
 
         if ($deleted) {
             $this->_em->getFilters()->disable('softdeleteable');
         }
-        
+
 
         if (isset($criteria['query'])) {
             $queryBuilder
@@ -46,23 +43,22 @@ class UserRepository extends BaseUserRepository
                     ->setParameter('admin', $this->user)
                     ->setParameter('query', '%' . $criteria['query'] . '%')
             ;
-        }elseif(isset($criteria['type'])){
+        } elseif (isset($criteria['type'])) {
             $queryBuilder
-                   ->innerJoin("o.groups", "g", "WITH", "g.name= :type")
+                    ->innerJoin("o.groups", "g", "WITH", "g.name= :type")
                     ->innerJoin('o.admin', 'admin')
                     ->andWhere('admin = :admin')
                     ->setParameter('admin', $this->user)
-                    ->setParameter('type',  $criteria['type'])->addSelect("g") 
+                    ->setParameter('type', $criteria['type'])->addSelect("g")
             ;
-        } 
-        else {
+        } else {
             $queryBuilder
-                        ->innerJoin('o.admin', 'admin')
-                        ->andWhere('admin = :admin')
-                        ->setParameter('admin', $this->adminUser)
-                ;
+                    ->innerJoin('o.admin', 'admin')
+                    ->andWhere('admin = :admin')
+                    ->setParameter('admin', $this->adminUser)
+            ;
         }
-        
+
         if (isset($criteria['enabled'])) {
             $queryBuilder
                     ->andWhere('o.enabled = :enabled')
@@ -136,20 +132,11 @@ class UserRepository extends BaseUserRepository
     protected function getCollectionQueryBuilderBetweenDates(\DateTime $from, \DateTime $to) {
         $queryBuilder = $this->getCollectionQueryBuilder();
         return $queryBuilder
-            ->andWhere($queryBuilder->expr()->gte('o.createdAt', ':from'))
-            ->andWhere($queryBuilder->expr()->lte('o.createdAt', ':to'))
-            ->setParameter('from', $from)
-            ->setParameter('to', $to)
+                        ->andWhere($queryBuilder->expr()->gte('o.createdAt', ':from'))
+                        ->andWhere($queryBuilder->expr()->lte('o.createdAt', ':to'))
+                        ->setParameter('from', $from)
+                        ->setParameter('to', $to)
         ;
-//        return $queryBuilder
-//                        ->andWhere($queryBuilder->expr()->gte('o.createdAt', ':from'))
-//                        ->andWhere($queryBuilder->expr()->lte('o.createdAt', ':to'))
-//                        ->innerJoin('o.admin', 'admin')
-//                        ->andWhere('admin = :admin')
-//                        ->setParameter('admin', $this->adminUser)
-//                        ->setParameter('from', $from)
-//                        ->setParameter('to', $to)
-//        ;
     }
 
 }

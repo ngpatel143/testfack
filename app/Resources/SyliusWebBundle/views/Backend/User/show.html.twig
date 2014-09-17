@@ -100,9 +100,13 @@
             <li><a href="#green" data-toggle="tab">Purchase Order</a></li>
             <li><a href="#blue" data-toggle="tab">Expenses</a></li>
         </ul>
-        <div id="my-tab-content" class="tab-content">
+        <div id="my-tab-content" class="tab-content voffset2">
             <div class="tab-pane active" id="red">
-               {% include 'IbillmakerHubCoreBundle:Backend:UserGrid/contact.html.twig'  %}
+                <div class="row">
+                    <div class="col-md-12">                        
+                        {% include 'IbillmakerHubCoreBundle:Backend:UserGrid/contact.html.twig'  %}
+                    </div>
+                </div>    
             </div>
             <div class="tab-pane" id="orange">
                 <div class="row">

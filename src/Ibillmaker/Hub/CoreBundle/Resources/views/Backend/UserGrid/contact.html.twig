@@ -1,7 +1,18 @@
 {% block content %}
 
-<div ng-app="app" ng-controller="Ctrl">
-   <table class="table table-bordered table-hover table-condensed">
+<div ng-app="app" ng-controller="Ctrl" class="tab-content">
+    
+    
+    <div class="row voffset">
+        <div class="col-sm-6">
+             <button class="btn btn-default btn-sm" ng-click="addUser()">Add row</button>
+        </div>    
+        <div class="col-sm-6">
+             <button class="btn btn-default btn-sm" ng-click="addUser()">Add row</button>
+        </div>
+    </div>
+   
+   <table class="table table-bordered table-hover table-condensed voffset3">
     <tr style="font-weight: bold">
       <td style="width:35%">Name</td>
       <td style="width:20%">Status</td>
@@ -45,7 +56,7 @@
     </tr>
   </table>
 
-  <button class="btn btn-default" ng-click="addUser()">Add row</button>
+  
 </div>
 
 {% endblock %}

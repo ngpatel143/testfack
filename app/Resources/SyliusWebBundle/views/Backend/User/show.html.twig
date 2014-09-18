@@ -27,7 +27,33 @@
     {% endfor%}        
 </div>
 
-<table class="table table-bordered table-condensed table-hover">
+<div class="row">
+    {% if user.shippingAddress %}
+        <div class="col-md-6">
+            <h4>{{ 'sylius.user.shipping_address'|trans }}</h4>
+            {% include 'SyliusWebBundle:Backend/Address:_show.html.twig' with {'address': user.shippingAddress } %}
+        </div>
+    {% endif %}
+    {% if user.billingAddress %}
+        <div class="col-md-6">
+            <h4>{{ 'sylius.user.billing_address'|trans }}</h4>
+            {% include 'SyliusWebBundle:Backend/Address:_show.html.twig' with {'address': user.billingAddress } %}
+        </div>
+    {% endif %}
+</div>
+<div class="container">
+    <div id="content">
+        <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+            <li class="active"><a href="#details" data-toggle="tab">Details</a></li>
+            <li><a href="#contacts" data-toggle="tab">Contacts</a></li>
+            <li><a href="#invoices" data-toggle="tab">Invoices</a></li>
+            <li><a href="#estimates" data-toggle="tab">Estimates</a></li>
+            <li><a href="#purchaseOrders" data-toggle="tab">Purchase Order</a></li>
+            <li><a href="#expenses" data-toggle="tab">Expenses</a></li>
+        </ul>
+        <div id="my-tab-content" class="tab-content">
+            <div class="tab-pane active" id="details">
+               <table class="table table-bordered table-condensed table-hover">
     <thead>
         <tr>
             <th colspan="4">{{ 'sylius.user.general_info'|trans({'%username%': user.username}) }}</th>
@@ -76,6 +102,7 @@
         {% endif %}
     </tbody>
 </table>
+<<<<<<< HEAD
 
 <div class="row">
     {% if user.shippingAddress %}
@@ -101,29 +128,25 @@
             <li><a href="#blue" data-toggle="tab">Expenses</a></li>
         </ul>
         <div id="my-tab-content" class="tab-content voffset2">
-            <div class="tab-pane active" id="red">
-                <div class="row">
-                    <div class="col-md-12">                        
-                        {% include 'IbillmakerHubCoreBundle:Backend:UserGrid/contact.html.twig'  %}
-                    </div>
-                </div>    
+            <div class="tab-pane" id="contacts">
+               {% include 'IbillmakerHubCoreBundle:Backend:UserGrid/contact.html.twig'  %}
             </div>
-            <div class="tab-pane" id="orange">
+            <div class="tab-pane" id="invoices">
                 <div class="row">
                     <div class="col-md-12">
                         {% render(url('sylius_backend_order_by_user', app.request.query.all|merge({id: user.id}) )) %}
                     </div>
                 </div>
             </div>
-            <div class="tab-pane" id="yellow">
+            <div class="tab-pane" id="estimates">
                 <h1>Yellow</h1>
                 <p>yellow yellow yellow yellow yellow</p>
             </div>
-            <div class="tab-pane" id="green">
+            <div class="tab-pane" id="purchaseOrders">
                 <h1>Green</h1>
                 <p>green green green green green</p>
             </div>
-            <div class="tab-pane" id="blue">
+            <div class="tab-pane" id="expenses">
                 <h1>Blue</h1>
                 <p>blue blue blue blue blue</p>
             </div>

@@ -16,6 +16,28 @@
             <join-column name="adminId" referenced-column-name="id" nullable="true" />
         </many-to-one>
         
+        <many-to-one field="people" target-entity="Ibillmaker\Hub\CoreBundle\Entity\User">
+            <cascade>
+                <cascade-all/>
+            </cascade>
+            <join-column name="peopleId" referenced-column-name="id" nullable="true" length="" />
+        </many-to-one>
+
+        
+         <field name="phoneNumber" column="phoneNumber" type="string" length="50" nullable="true" />
+         <field name="mobileNumber" column="mobileNumber" type="string" length="50" nullable="true" />
+         <attribute-overrides>
+             
+            <attribute-override name="emailCanonical">
+                <field column="email_canonical" unique="false"/>
+            </attribute-override>
+            
+             <attribute-override name="usernameCanonical">
+                <field column="username_canonical" unique="false"/>
+            </attribute-override>
+            
+        </attribute-overrides>
+        
     </mapped-superclass>
         
 </doctrine-mapping>

@@ -51,85 +51,12 @@
             <li><a href="#purchaseOrders" data-toggle="tab">Purchase Order</a></li>
             <li><a href="#expenses" data-toggle="tab">Expenses</a></li>
         </ul>
-        <div id="my-tab-content" class="tab-content">
+        <div  id="my-tab-content" class="tab-content voffset3">
             <div class="tab-pane active" id="details">
-               <table class="table table-bordered table-condensed table-hover">
-    <thead>
-        <tr>
-            <th colspan="4">{{ 'sylius.user.general_info'|trans({'%username%': user.username}) }}</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td><strong>{{ 'sylius.user.id'|trans }}</strong></td>
-            <td>{{ user.id }}</td>
-             <td><strong>{{ 'sylius.user.enabled'|trans }}</strong></td>
-            <td>
-                <span class="label label-{{ user.enabled ? 'success' : 'important'}}">
-                    {{ user.enabled ? 'sylius.yes'|trans : 'sylius.no'|trans }}
-                </span>
-            </td>
-        </tr>
-        <tr>
-        
-        {% if user.firstName %}
-            <td><strong>{{ 'sylius.user.first_name'|trans }}</strong></td>
-            <td>{{ user.firstName }}</td>
-             <td><strong>{{ 'sylius.user.username'|trans }}</strong></td>
-            <td>{{ user.username }}</td>
-        {% endif %}
-        
-        </tr>
-        <tr>
-            {% if user.lastName %}
-           
-                <td><strong>{{ 'sylius.user.last_name'|trans }}</strong></td>
-                <td>{{ user.lastName }}</td>
-            
-            {% endif %}
-           
-            <td><strong>{{ 'sylius.user.email'|trans }}</strong></td>
-            <td>{{ user.email }}</td>
-        </tr>
-        <tr>
-           
-        </tr>
-        {% if user.lastLogin %}
-        <tr>
-            <td><strong>{{ 'sylius.user.last_login'|trans }}</strong></td>
-            <td>{{ user.lastLogin|date }}</td>
-        </tr>
-        {% endif %}
-    </tbody>
-</table>
-<<<<<<< HEAD
-
-<div class="row">
-    {% if user.shippingAddress %}
-        <div class="col-md-6">
-            <h4>{{ 'sylius.user.shipping_address'|trans }}</h4>
-            {% include 'SyliusWebBundle:Backend/Address:_show.html.twig' with {'address': user.shippingAddress } %}
-        </div>
-    {% endif %}
-    {% if user.billingAddress %}
-        <div class="col-md-6">
-            <h4>{{ 'sylius.user.billing_address'|trans }}</h4>
-            {% include 'SyliusWebBundle:Backend/Address:_show.html.twig' with {'address': user.billingAddress } %}
-        </div>
-    {% endif %}
-</div>
-<div class="container">
-    <div id="content">
-        <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-            <li class="active"><a href="#red" data-toggle="tab">Contacts</a></li>
-            <li><a href="#orange" data-toggle="tab">Invoices</a></li>
-            <li><a href="#yellow" data-toggle="tab">Estimates</a></li>
-            <li><a href="#green" data-toggle="tab">Purchase Order</a></li>
-            <li><a href="#blue" data-toggle="tab">Expenses</a></li>
-        </ul>
-        <div id="my-tab-content" class="tab-content voffset2">
+                  {% include 'IbillmakerHubCoreBundle:Backend:User/details_xeditable.html.twig'  %}
+            </div>       
             <div class="tab-pane" id="contacts">
-               {% include 'IbillmakerHubCoreBundle:Backend:UserGrid/contact.html.twig'  %}
+               {% include 'IbillmakerHubCoreBundle:Backend:User/UserGrid/contact.html.twig'  %}
             </div>
             <div class="tab-pane" id="invoices">
                 <div class="row">
@@ -139,8 +66,7 @@
                 </div>
             </div>
             <div class="tab-pane" id="estimates">
-                <h1>Yellow</h1>
-                <p>yellow yellow yellow yellow yellow</p>
+              
             </div>
             <div class="tab-pane" id="purchaseOrders">
                 <h1>Green</h1>

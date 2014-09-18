@@ -3,7 +3,7 @@ parameters:
     sylius.database.driver: pdo_mysql
     sylius.database.host: 127.0.0.1
     sylius.database.port: null
-    sylius.database.name: fake_sylius
+    sylius.database.name: sylius
     sylius.database.user: root
     sylius.database.password: root
     sylius.mailer.transport: smtp

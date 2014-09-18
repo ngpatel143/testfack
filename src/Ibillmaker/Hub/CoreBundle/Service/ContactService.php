@@ -50,7 +50,15 @@ class ContactService {
      * @param Array $contactDetails  Description is same as createNewContact method 
      * @return json return response in json
      */
-    public function deleteContact($contactDetails){
+    public function deleteContact($contactId){
+        
+    }
+    
+    /**
+     * @param Array $contactDetails  Description is same as createNewContact method 
+     * @return json return response in json
+     */
+    public function getContact($contactId){
         
     }
     

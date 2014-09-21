@@ -1,97 +1,82 @@
-{% block content %}
-<h4>Angular-xeditable Editable form (Bootstrap 3)</h4>
-<div ng-app="formEdit" ng-controller="formEditController">
- <form editable-form name="editableForm" onaftersave="saveUser()">
-    <div>
-      <!-- editable username (text with validation) -->
-      <span class="title">User name: </span>
-      <span editable-text="user.name" e-name="name" onbeforesave="checkName($data)" e-required>[[ user.name || 'empty' ]]</span>
-    </div> 
+{% block content %}    
+    <div class="container">
+    <div  class="row" ng-app="formEdit" ng-controller="formEditController" ng-init="init({{user.id}})">
+        <div class="col-md-11">
+            <form editable-form name="editableForm" onaftersave="saveUser()">
 
-    <div>
-      <!-- editable status (select-local) -->
-      <span class="title">Status: </span>
-      <span editable-select="user.status" e-name="status" e-ng-options="s.value as s.text for s in statuses">
-          [[ (statuses | filter:{value: user.status})[0].text || 'Not set' ]]
-      </span>
+                   <table class="table table-bordered table-condensed table-hover">
+                               <thead>
+                                   <tr>
+                                       <th colspan="3">{{ 'sylius.user.general_info'|trans({'%username%': user.username}) }}</th>
+                                       <th colspan="1">
+                                           <div class="actions-menu">
+                                           <!-- button to show form -->
+                                           <button type="button" class="btn btn-primary btn-sm" ng-click="editableForm.$show()" ng-show="!editableForm.$visible">
+                                               <i class="glyphicon glyphicon-pencil"></i>
+                                             Edit
+                                           </button>
+                                           <!-- buttons to submit / cancel form -->
+                                           <span ng-show="editableForm.$visible">
+                                             <button type="submit" class="btn btn-success btn-sm" ng-disabled="editableForm.$waiting">
+                                               <i class="glyphicon glyphicon-floppy-saved"></i>
+                                               Save
+                                             </button>
+                                             <button type="button" class="btn btn-default btn-sm" ng-disabled="editableForm.$waiting" ng-click="editableForm.$cancel()">
+                                               Cancel
+                                               <i class="glyphicon glyphicon-remove"></i>
+                                             </button>
+                                           </span>
+                                           </div>
+                                       </th>  
+                                   </tr>
+
+                               </thead>
+                               <tbody>
+                                   <tr>
+                                       <td><strong>{{ 'sylius.user.id'|trans }}</strong></td>
+                                       <td>{{ user.id }}</td>
+                                        <td><strong>{{ 'sylius.user.enabled'|trans }}</strong></td>
+                                       <td>
+                                           <span class="label label-{{ user.enabled ? 'success' : 'important'}}">
+                                               {{ user.enabled ? 'sylius.yes'|trans : 'sylius.no'|trans }}
+                                           </span>
+                                       </td>
+                                   </tr>
+
+                                   <tr>
+
+                                   {% if user.firstName %}
+                                       <td><strong>{{ 'sylius.user.first_name'|trans }}</strong></td>
+                                       <td> <span editable-text="user.firstName" e-name="firstName"  e-required>[[ user.firstName || 'empty' ]]</span></td>
+                                       <td><strong>{{ 'sylius.user.username'|trans }}</strong></td>
+                                       <td> <span editable-text="user.userName" e-name="userName" onbeforesave="checkName($data)" e-required>[[ user.userName || 'empty' ]]</span></td>
+                                   {% endif %}
+
+                                   </tr>
+                                   <tr>
+                                       {% if user.lastName %}
+
+                                           <td><strong>{{ 'sylius.user.last_name'|trans }}</strong></td>
+                                           <td> <span editable-text="user.lastName" e-name="lastName"  e-required>[[ user.lastName || 'empty' ]]</span></td>
+
+                                       {% endif %}
+
+                                       <td><strong>{{ 'sylius.user.email'|trans }}</strong></td>
+                                       <td> <span editable-text="user.email" e-name="email" onbeforesave="checkEmail($data)"  e-required>[[ user.email || 'empty' ]]</span></td>
+                                   </tr>
+                                   <tr>
+
+                                   </tr>
+                                   {% if user.lastLogin %}
+                                   <tr>
+                                       <td><strong>{{ 'sylius.user.last_login'|trans }}</strong></td>
+                                       <td>{{ user.lastLogin|date }}</td>
+                                   </tr>
+                                   {% endif %}
+                       </tbody>
+                   </table>
+                 </form>  
+               </div>  
     </div>  
-
-    <div>
-      <!-- editable group (select-remote) -->
-      <span class="title">Group: </span>
-      <span editable-select="user.group" e-name="group" onshow="loadGroups()" e-ng-options="g.id as g.text for g in groups">
-        [[ showGroup() ]]
-      </span>
-    </div>
-
-    <div>
-      <!-- button to show form -->
-      <button type="button" class="btn btn-default" ng-click="editableForm.$show()" ng-show="!editableForm.$visible">
-        Edit
-      </button>
-      <!-- buttons to submit / cancel form -->
-      <span ng-show="editableForm.$visible">
-        <button type="submit" class="btn btn-primary" ng-disabled="editableForm.$waiting">
-          Save
-        </button>
-        <button type="button" class="btn btn-default" ng-disabled="editableForm.$waiting" ng-click="editableForm.$cancel()">
-          Cancel
-        </button>
-      </span>
-    </div>
-  </form>  
-</div>
-<div>
-        <table class="table table-bordered table-condensed table-hover">
-                    <thead>
-                        <tr>
-                            <th colspan="4">{{ 'sylius.user.general_info'|trans({'%username%': user.username}) }}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>{{ 'sylius.user.id'|trans }}</strong></td>
-                            <td>{{ user.id }}</td>
-                             <td><strong>{{ 'sylius.user.enabled'|trans }}</strong></td>
-                            <td>
-                                <span class="label label-{{ user.enabled ? 'success' : 'important'}}">
-                                    {{ user.enabled ? 'sylius.yes'|trans : 'sylius.no'|trans }}
-                                </span>
-                            </td>
-                        </tr>
-                       
-                        <tr>
-                          
-                        {% if user.firstName %}
-                            <td><strong>{{ 'sylius.user.first_name'|trans }}</strong></td>
-                            <td>{{ user.firstName }}</td>
-                             <td><strong>{{ 'sylius.user.username'|trans }}</strong></td>
-                            <td>{{ user.username }}</td>
-                        {% endif %}
-
-                        </tr>
-                        <tr>
-                            {% if user.lastName %}
-
-                                <td><strong>{{ 'sylius.user.last_name'|trans }}</strong></td>
-                                <td>{{ user.lastName }}</td>
-
-                            {% endif %}
-
-                            <td><strong>{{ 'sylius.user.email'|trans }}</strong></td>
-                            <td>{{ user.email }}</td>
-                        </tr>
-                        <tr>
-
-                        </tr>
-                        {% if user.lastLogin %}
-                        <tr>
-                            <td><strong>{{ 'sylius.user.last_login'|trans }}</strong></td>
-                            <td>{{ user.lastLogin|date }}</td>
-                        </tr>
-                        {% endif %}
-            </tbody>
-        </table>
-    </form>        
-</div>            
+</div>  
 {% endblock%}            

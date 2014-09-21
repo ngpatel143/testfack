@@ -88,5 +88,4 @@ app.run(function($httpBackend) {
     return [200, {status: 'ok'}];
   });
 });
-
-  angular.bootstrap(document.getElementById('contacts'),['contactsList']);
+  

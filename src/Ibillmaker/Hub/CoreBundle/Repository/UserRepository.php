@@ -93,10 +93,11 @@ class UserRepository extends BaseUserRepository {
 
         $queryBuilder
                 ->andWhere($queryBuilder->expr()->eq('o.id', ':id'))
+                ->andWhere('o.deletedAt is NULL')
                 ->innerJoin('o.admin', 'admin')
                 ->andWhere('admin = :admin')
                 ->setParameter('admin', $this->adminUser)
-                ->setParameter('id', $id)
+                ->setParameter('id', $id)    
         ;
 
         $result = $queryBuilder

@@ -1,3 +1,7 @@
 ibillmaker_hub_core_homepage:
     path:     /hello/{name}
     defaults: { _controller: IbillmakerHubCoreBundle:Default:index }
+    
+ibillmaker_hub_core_get_userdetails:
+    path: iauser/getuserdetails/{id} 
+    defaults: { _controller: IbillmakerHubCoreBundle:IAUser:getUserDetails }

@@ -4,7 +4,7 @@ namespace Ibillmaker\Hub\CoreBundle\Controller;
 
 use Sylius\Bundle\CoreBundle\Controller\UserController as BaseUserController;
 use Symfony\Component\HttpFoundation\Request;
-
+use Symfony\Component\HttpFoundation\Response;
 class UserController extends BaseUserController
 {
 
@@ -22,13 +22,14 @@ class UserController extends BaseUserController
         return $user;
     }
     
-    public function createNewContactAction(Request $request)
-    {
-        $userRepository = $this->container->get('sylius.repository.user');
-        $user = $userRepository->createNew();
-        
-        
-    }
+//    public function createNewContactAction(Request $request)
+//    {
+//        $userRepository = $this->container->get('sylius.repository.user');
+//        $user = $userRepository->createNew();
+//        
+//        
+//    }
+ 
 }
 
 

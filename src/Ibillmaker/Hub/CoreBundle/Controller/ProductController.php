@@ -2,6 +2,7 @@
 
 namespace Ibillmaker\Hub\CoreBundle\Controller;
 
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Sylius\Bundle\CoreBundle\Controller\ProductController as BaseProductController;
 
 /*

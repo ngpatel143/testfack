@@ -19,3 +19,8 @@ and open the template in the editor.
 .voffset7 { margin-top: 80px; }
 .voffset8 { margin-top: 100px; }
 .voffset9 { margin-top: 150px; }
+
+.editable-wrap .editable-input {
+    display: inline-block;
+    border-color: #8B8888;
+}

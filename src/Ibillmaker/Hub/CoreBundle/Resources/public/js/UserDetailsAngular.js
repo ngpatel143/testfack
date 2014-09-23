@@ -16,8 +16,6 @@ appformEdit.run(function(editableOptions) {
     
         // I apply the remote data to the local scope.
     function applyRemoteData( userDetail ) {
-        console.log('RemoteData');
-        console.log(userDetail);
         $scope.user = userDetail;
     }
 
@@ -33,14 +31,19 @@ appformEdit.run(function(editableOptions) {
                 }
             )
         ;
-
     }
     
 
-  $scope.checkName = function(data) {
-    if (data !== 'awesome' && data !== 'error') {
-      return "Username should be `awesome` or `error`";
-    }
+  $scope.checkUserName = function(userName) {
+      this.data = '';
+      IAPIUserDetailService.checkUserName(userName)
+            .then(
+                function( userResponse ) {
+                    console.log(userResponse);
+                    if (userResponse.code == 21) {
+                        $scope.editableForm.$setError('userName', userResponse.message);
+                    }
+                });
   };
 
   $scope.saveUser = function() {
@@ -71,15 +74,16 @@ appformEdit.factory('IAPIUserDetailService', function($http) {
 //    });
 //    }
     
-     // I get all of the friends in the remote collection.
-                 InternalAPIUserDetail.getUserDetails = function(id) {
- 
-                var request =    $http.get("http://localhost:9091/iauser/getuserdetails/"+id)
-                  
-                     return( request.then( handleSuccess, handleError ) );
- 
+                // I get all of the Users Details in the remote collection.
+                InternalAPIUserDetail.getUserDetails = function(id) {
+                    var request =    $http.get("http://localhost:9091/iauser/getuserdetails/"+id)
+                    return( request.then( handleSuccess, handleError ) );
                 }
-                
+                // check userName is exist or not
+                InternalAPIUserDetail.checkUserName = function(userName){
+                    var request = $http.get("http://localhost:9091/iauser/checkusername/"+userName)
+                    return( request.then( handleSuccess, handleError ) );
+                }
     
                 // I transform the error response, unwrapping the application dta from
                 // the API response payload.
@@ -93,26 +97,20 @@ appformEdit.factory('IAPIUserDetailService', function($http) {
                         ! angular.isObject( response.data ) ||
                         ! response.data.message
                         ) {
- 
                         return( $q.reject( "An unknown error occurred." ) );
- 
                     }
  
                     // Otherwise, use expected error message.
                     return( $q.reject( response.data.message ) );
- 
                 }
  
  
                 // I transform the successful response, unwrapping the application data
                 // from the API response payload.
                 function handleSuccess( response ) {
- 
                     return( response.data );
- 
                 }            
  
-
     return InternalAPIUserDetail;
   });
   

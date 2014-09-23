@@ -28,7 +28,7 @@ Class UserService
         $result['userName'] = $user->getUserName();
         return $result;
       }else{
-          throw new Exception('Page Not Found', 404);
+          throw new \Exception('Page Not Found', 404);
       }
       
     }
@@ -42,8 +42,32 @@ Class UserService
         
     }
     
-    public function checkUserName($userName,$adminId)
+    /**
+     * @param string $userName 
+     * checkUserName for perticular admin is it exist or not.
+     */
+    public function checkUserName($userName)
     {
-        $user = $this->container->get('sylius.repository.user')->findOneBy(array(''));
+        try{
+            if(empty($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY'))){ 
+                throw new \Exception('user has not rights to access this content', 401);
+                exit;
+            }
+            $user = $this->container->get('security.context')->getToken()->getUser();
+            
+            // check if current logged in user is a admin or not. 
+            $adminUser = ($user->getAdmin() == NULL)? $user :$user->getAdmin();
+            $adminId = $adminUser->getId();
+            $userDetails = $this->container->get('sylius.repository.user')->findOneBy(array('username'=>$userName));
+            
+            if(!isset($userDetails)){
+                return array('userName'=>$userName);
+            }else{
+                // for detail about the error codes check out the documentation.
+                throw new \Exception('UserName already Exist',21);
+            }
+        }  catch (\Exception $e){
+            throw new \Exception($e->getMessage(), $e->getCode());
+        }
     }
 }

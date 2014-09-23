@@ -96,7 +96,7 @@ class ValidationService {
             }
             try{
                  $result = self::validateItem($val, $this->validations[$key]);
-            } catch (Exception $ex) {
+            } catch (\Exception $ex) {
               
             }
            

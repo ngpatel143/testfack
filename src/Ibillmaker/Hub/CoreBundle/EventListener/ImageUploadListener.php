@@ -12,7 +12,7 @@
 namespace Ibillmaker\Hub\CoreBundle\EventListener;
 
 use  Sylius\Bundle\CoreBundle\EventListener\ImageUploadListener as BaseImageUploadListener;
-
+use Sylius\Component\Core\Model\ProductVariantInterface;
 use Ibillmaker\Hub\CoreBundle\Entity\Product; 
 use Sylius\Component\Core\Uploader\ImageUploaderInterface;
 use Sylius\Component\Resource\Exception\UnexpectedTypeException;

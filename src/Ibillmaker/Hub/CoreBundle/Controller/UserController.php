@@ -3,6 +3,7 @@
 namespace Ibillmaker\Hub\CoreBundle\Controller;
 
 use Sylius\Bundle\CoreBundle\Controller\UserController as BaseUserController;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 class UserController extends BaseUserController

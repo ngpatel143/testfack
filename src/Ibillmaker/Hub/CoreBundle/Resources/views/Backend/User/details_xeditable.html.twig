@@ -49,7 +49,13 @@
                                        <td><strong>{{ 'sylius.user.first_name'|trans }}</strong></td>
                                        <td> <span editable-text="user.firstName" e-name="firstName"  e-required>[[ user.firstName || 'empty' ]]</span></td>
                                        <td><strong>{{ 'sylius.user.username'|trans }}</strong></td>
-                                       <td> <span editable-text="user.userName" e-name="userName" onbeforesave="checkName($data)" e-required>[[ user.userName || 'empty' ]]</span></td>
+                                       <td><div class="row">
+                                                <div class="col-md-12">
+                                                    <span editable-text="user.userName" e-name="userName" onbeforesave="checkUserName($data)" e-required>[[ user.userName || 'empty' ]]</span>
+                                                    <span class="highlight">@ibillmaker</span>
+                                                </div>
+                                                </div>    
+                                        </div> </td>  
                                    {% endif %}
 
                                    </tr>

@@ -26,6 +26,7 @@ appformEdit.run(function(editableOptions) {
         IAPIUserDetailService.getUserDetails(id)
             .then(
                 function( userDetail ) {
+                    userDetail.id = id;
                     applyRemoteData( userDetail );
 
                 }
@@ -36,10 +37,11 @@ appformEdit.run(function(editableOptions) {
 
   $scope.checkUserName = function(userName) {
       this.data = '';
-      IAPIUserDetailService.checkUserName(userName)
+      console.log($scope.user);
+      IAPIUserDetailService.checkUserName(userName,$scope.user.id)
             .then(
                 function( userResponse ) {
-                    console.log(userResponse);
+                    console.log(userResponse.code);
                     if (userResponse.code == 21) {
                         $scope.editableForm.$setError('userName', userResponse.message);
                     }
@@ -48,15 +50,16 @@ appformEdit.run(function(editableOptions) {
 
   $scope.saveUser = function() {
     // $scope.user already updated!
-    return $http.post('/saveUser', $scope.user).error(function(err) {
-      if(err.field && err.msg) {
-        // err like {field: "name", msg: "Server-side error for this username!"} 
-        $scope.editableForm.$setError(err.field, err.msg);
-      } else { 
-        // unknown error
-        $scope.editableForm.$setError('name', 'Unknown error!');
-      }
-    });
+    console.log('------save user');
+    console.log($scope.user);
+     IAPIUserDetailService.saveUserDetails($scope.user)
+            .then(
+                function( userResponse ) {
+                    console.log(userResponse.code);
+                    if (userResponse.code == 21) {
+                        $scope.editableForm.$setError('userName', userResponse.message);
+                    }
+                });
   };
 });
 
@@ -80,8 +83,13 @@ appformEdit.factory('IAPIUserDetailService', function($http) {
                     return( request.then( handleSuccess, handleError ) );
                 }
                 // check userName is exist or not
-                InternalAPIUserDetail.checkUserName = function(userName){
-                    var request = $http.get("http://localhost:9091/iauser/checkusername/"+userName)
+                InternalAPIUserDetail.checkUserName = function(userName,id){
+                    var request = $http.get("http://localhost:9091/iauser/checkusername/"+userName+"/"+id)
+                    return( request.then( handleSuccess, handleError ) );
+                }
+                // Save UserDetails
+                InternalAPIUserDetail.saveUserDetails = function(userDetails){
+                    var request = $http.post("http://localhost:9091/iauser/saveuserdetails",userDetails)
                     return( request.then( handleSuccess, handleError ) );
                 }
     

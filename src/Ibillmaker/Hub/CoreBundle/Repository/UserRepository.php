@@ -104,6 +104,7 @@ class UserRepository extends BaseUserRepository {
                 ->getQuery()
                 ->getOneOrNullResult()
         ;
+        $result->setCompanyId($this->adminUser->getCompanyId());
 
         return $result;
     }

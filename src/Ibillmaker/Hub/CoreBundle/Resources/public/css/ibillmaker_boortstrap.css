@@ -24,3 +24,8 @@ and open the template in the editor.
     display: inline-block;
     border-color: #8B8888;
 }
+
+input.username.editable-input.form-control.ng-pristine.ng-valid.ng-valid-required 
+input.username.editable-input.form-control.ng-pristine.ng-valid{
+    text-align: right;
+}

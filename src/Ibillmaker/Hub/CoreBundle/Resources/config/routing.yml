@@ -7,5 +7,9 @@ ibillmaker_hub_core_get_userdetails:
     defaults: { _controller: IbillmakerHubCoreBundle:IAUser:getUserDetails }
 
 ibillmaker_hub_core_check_user_name:
-    path: iauser/checkusername/{userName} 
+    path: iauser/checkusername/{userName}/{id} 
     defaults: { _controller: IbillmakerHubCoreBundle:IAUser:checkUserName }
+
+ibillmaker_hub_core_save_user_details:
+    path: iauser/saveuserdetails 
+    defaults: { _controller: IbillmakerHubCoreBundle:IAUser:saveUserDetails }

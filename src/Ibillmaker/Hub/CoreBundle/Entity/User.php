@@ -31,7 +31,7 @@ class User extends BaseUser {
     public function __construct($datas = NULL) 
     {
         parent::__construct();
-        if(empty($datas)){
+        if(!empty($datas)){
             foreach ($datas as $attributeName => $attributeValue) {
                 $this->__setAttribute($attributeName, $attributeValue);
             }
@@ -143,7 +143,8 @@ class User extends BaseUser {
      */
     public function setEmail($email)
     {
-        parent::setEmail($email);
+         $this->email = $email;
+         $this->setEmailCanonical($email);
         return $this;
     }
 
@@ -152,11 +153,30 @@ class User extends BaseUser {
      */
     public function setEmailCanonical($emailCanonical)
     {
-        parent::setEmailCanonical($emailCanonical);
+        $this->emailCanonical = $emailCanonical;
         return $this;
     }
     
-    
+   
+     /**
+     * {@inheritdoc}
+     */
+    public function setUsername($username)
+    {
+        
+        parent::setUsername($username);
+       
+        $this->setUsernameCanonical($username);
+        return $this;
+    }
+     /**
+     * {@inheritdoc}
+     */
+    public function setUsernameCanonical($username)
+    {
+        $this->usernameCanonical = $username;
+        return $this;
+    }
     public function __get($property) 
     {
         if (property_exists($this, $property)) {

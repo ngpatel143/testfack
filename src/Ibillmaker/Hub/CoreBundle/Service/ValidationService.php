@@ -99,8 +99,7 @@ class ValidationService {
             } catch (\Exception $ex) {
               
             }
-           
-            
+                     
             if ($result === false) {
                 $this->addError($key, $this->validations[$key]);
              

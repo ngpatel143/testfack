@@ -51,8 +51,7 @@
                                        <td><strong>{{ 'sylius.user.username'|trans }}</strong></td>
                                        <td><div class="row">
                                                 <div class="col-md-12">
-                                                    <span editable-text="user.username" e-class="username" e-name="username" style="text-align:right;" onbeforesave="checkUserName($data)" ng-keyup="checkUserName($data)" >[[ user.username || 'empty' ]]</span>
-                                                    <span editable-text="user.userName" e-class="userName" e-name="userName" style="text-align:right;" onbeforesave="checkUserName($data)" ng-keyup="checkUserName($data)" >[[ user.username || 'empty' ]]</span>
+                                                    <span editable-text="user.username" e-class="username" e-name="username" e-id="username" style="text-align:right;" e-ng-class="{true: 'active', false: 'inactive'}[isActive]" e-ng-change="checkUserName($data)" >[[ user.username || 'empty' ]]</span>
                                                     <span class="highlight"><strong>@{{user.companyId}}</strong></span>
                                                 </div>
                                                 </div>    

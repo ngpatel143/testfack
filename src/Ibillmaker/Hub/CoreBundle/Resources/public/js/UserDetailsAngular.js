@@ -9,7 +9,8 @@ appformEdit.run(function(editableOptions) {
     appformEdit.controller('formEditController', function($scope ,$http,IAPIUserDetailService) {
         // I contain the User (Detail) to be rendered.
         $scope.user = [];  
-    
+        $scope.error = [];  
+        $scope.error.value = false;
     $scope.init = function(id){
       loadRemoteData(id);
     };
@@ -19,6 +20,10 @@ appformEdit.run(function(editableOptions) {
         $scope.user = userDetail;
     }
 
+    function applyError(){alert('ok');
+       $scope.error.value = true;
+      
+    }
 
     // I load the remote data from the server.
     function loadRemoteData(id) {
@@ -28,24 +33,27 @@ appformEdit.run(function(editableOptions) {
                 function( userDetail ) {
                     userDetail.id = id;
                     applyRemoteData( userDetail );
-
                 }
             )
         ;
     }
     
 
-  $scope.checkUserName = function(userName) {
-      this.data = '';
-      console.log($scope.user);
+  $scope.checkUserName = function(userName) {      
       IAPIUserDetailService.checkUserName(userName,$scope.user.id)
-            .then(
-                function( userResponse ) {
-                    console.log(userResponse.code);
-                    if (userResponse.code == 21) {
-                        $scope.editableForm.$setError('userName', userResponse.message);
-                    }
-                });
+                .then(
+                    function( userResponse) {
+                        console.log(userResponse);
+                        if (userResponse.code == 21) {
+                            $scope.editableForm.isActive = false;
+                            $scope.editableForm.$setError('username', 'username already exist. Please choose another one');
+                        }else{
+                            
+                            $scope.editableForm.$setError('username', 'username is  already');
+                            $scope.editableForm.isActive = false;
+                        }
+                    }); 
+                    
   };
 
   $scope.saveUser = function() {
@@ -57,7 +65,7 @@ appformEdit.run(function(editableOptions) {
                 function( userResponse ) {
                     console.log(userResponse.code);
                     if (userResponse.code == 21) {
-                        $scope.editableForm.$setError('userName', userResponse.message);
+                        $scope.editableForm.$setError('username', userResponse.message);
                     }
                 });
   };

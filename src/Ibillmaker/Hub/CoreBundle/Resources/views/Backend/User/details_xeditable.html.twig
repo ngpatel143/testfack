@@ -17,7 +17,7 @@
                                            </button>
                                            <!-- buttons to submit / cancel form -->
                                            <span ng-show="editableForm.$visible">
-                                             <button type="submit" class="btn btn-success btn-sm" ng-disabled="editableForm.$waiting">
+                                             <button type="submit" class="btn btn-success btn-sm" ng-disabled="editableForm.$invalid" ng-disabled="editableForm.$save" >
                                                <i class="glyphicon glyphicon-floppy-saved"></i>
                                                Save
                                              </button>
@@ -50,11 +50,14 @@
                                        <td> <span editable-text="user.firstName" e-name="firstName"  e-required>[[ user.firstName || 'empty' ]]</span></td>
                                        <td><strong>{{ 'sylius.user.username'|trans }}</strong></td>
                                        <td><div class="row">
-                                                <div class="col-md-12">
-                                                    <span editable-text="user.username" e-class="username" e-name="username" e-id="username" style="text-align:right;" e-ng-class="{true: 'active', false: 'inactive'}[isActive]" e-ng-change="checkUserName($data)" >[[ user.username || 'empty' ]]</span>
-                                                    <span class="highlight"><strong>@{{user.companyId}}</strong></span>
-                                                </div>
-                                                </div>    
+                                                
+                                                   <div class="col-md-8"> <span editable-text="user.username" e-class="username" e-name="username" e-id="username" style="text-align:right;" e-ng-class="{true: 'active', false: 'inactive'}[isActive]" e-ng-change="checkUserName($data)" >[[ user.username || 'empty' ]]</span>
+                                                   
+                                                   </div>
+                                                   <div class="col-md-4">
+                                                       <span class="highlight"><strong>@{{user.companyId}}</strong></span>
+                                                   </div>   
+                                                </div>     <span class="active" ng-show="editableForm.$validusername" ><strong>username available.</strong></span>
                                         </div> </td>  
                                    {% endif %}
 

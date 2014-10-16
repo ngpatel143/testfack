@@ -9,8 +9,9 @@ appformEdit.run(function(editableOptions) {
     appformEdit.controller('formEditController', function($scope ,$http,IAPIUserDetailService) {
         // I contain the User (Detail) to be rendered.
         $scope.user = [];  
-        $scope.error = [];  
-        $scope.error.value = false;
+        $scope.error = [];
+        $scope.editableForm = [];
+        $scope.editableForm.$validusername = false;
     $scope.init = function(id){
       loadRemoteData(id);
     };
@@ -27,6 +28,7 @@ appformEdit.run(function(editableOptions) {
 
     // I load the remote data from the server.
     function loadRemoteData(id) {
+        $scope.editableForm.$validusername = true;
         // The IAPIUserDetailService returns a promise.
         IAPIUserDetailService.getUserDetails(id)
             .then(
@@ -45,16 +47,20 @@ appformEdit.run(function(editableOptions) {
                     function( userResponse) {
                         console.log(userResponse);
                         if (userResponse.code == 21) {
-                            $scope.editableForm.isActive = false;
-                            $scope.editableForm.$setError('username', 'username already exist. Please choose another one');
+                            $scope.editableForm.$invalid = true;
+                            $scope.editableForm.$validusername = false;
+                            $scope.editableForm.$setError('username', 'username is not available. Please choose another one');
                         }else{
                             
-                            $scope.editableForm.$setError('username', 'username is  already');
-                            $scope.editableForm.isActive = false;
+                            $scope.editableForm.$invalid = false;
+                            $scope.editableForm.$validusername = true;
+                            $scope.editableForm.$setError('username', '');
                         }
                     }); 
                     
   };
+  
+  
 
   $scope.saveUser = function() {
     // $scope.user already updated!

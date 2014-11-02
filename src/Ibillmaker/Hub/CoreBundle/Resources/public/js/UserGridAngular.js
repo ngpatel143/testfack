@@ -7,7 +7,7 @@ app.run(function(editableOptions) {
   editableOptions.theme = 'bs3';
 });
 
-app.controller('Ctrl', function($scope, $filter, $http) {
+app.controller('Ctrl', function($scope, $filter, $http) {alert('ok');
  $scope.users = [
     {id: 1, name: 'awesome user1', status: 2, group: 4, groupName: 'admin'},
     {id: 2, name: 'awesome user2', status: undefined, group: 3, groupName: 'vip'},
@@ -88,4 +88,3 @@ app.run(function($httpBackend) {
     return [200, {status: 'ok'}];
   });
 });
-  

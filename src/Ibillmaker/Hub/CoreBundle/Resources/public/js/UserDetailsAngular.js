@@ -135,4 +135,3 @@ appformEdit.factory('IAPIUserDetailService', function($http) {
  
     return InternalAPIUserDetail;
   });
-  

@@ -13,6 +13,9 @@ web/js/*
 web/assets/compiled/*
 web/media/*
 
+help/*
+nbproject/*
+
 bin/behat
 bin/doctrine*
 bin/phpspec

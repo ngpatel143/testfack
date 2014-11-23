@@ -24,9 +24,20 @@
             <attribute-override name="lastName">   
                  <field column="last_name" type="string" nullable="true" />
             </attribute-override>
+            <attribute-override name="city">   
+                 <field column="city" type="string" nullable="true" />
+            </attribute-override>
             
         </attribute-overrides>    
-       
+        
+        <many-to-one field="user" target-entity="Ibillmaker\Hub\CoreBundle\Entity\User">
+            <cascade>
+                <cascade-all/>
+            </cascade>
+            <join-column name="userId" referenced-column-name="id" nullable="true" />
+        </many-to-one>
+        
+         <field name="type" column="type" type="string" length="10" nullable="true" />
     </mapped-superclass>
 
 </doctrine-mapping>

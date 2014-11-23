@@ -678,7 +678,7 @@ sylius:
             all: Show all users
             unconfirmed: Unconfirmed accounts
         first_name: First name
-        general_info: User "%username%" general info
+        general_info: %companyName% general info
         id: ID
         index_header: Users <small>List of all users registered in store</small>
         last_login: Last login
@@ -700,6 +700,7 @@ sylius:
         show_header: User details
         update_header: Editing user
         username: Username
+        company_name: Company Name
     variant:
         add_image: Add image
         availability: Availability

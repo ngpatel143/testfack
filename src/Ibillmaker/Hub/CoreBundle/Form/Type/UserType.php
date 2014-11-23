@@ -14,6 +14,11 @@ class UserType extends BaseUserType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
+        $builder->remove('groups')
+        ->add('groups', 'sylius_group_choice', array(
+                'label'    => 'Type of User',
+                'empty_value' => 'Select type of User'
+            ));
 //        $builder->add('companyId', 'text', array('required' => true));
 //        $builder->add('companyName', 'text', array('required' => true));
     }

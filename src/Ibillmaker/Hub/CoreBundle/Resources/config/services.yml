@@ -1,12 +1,15 @@
 parameters:
     ibillmaker_hub_core.user.provider.class: Ibillmaker\Hub\CoreBundle\Security\UserProvider
     ibillmaker_hub_core.user.repository.class: Ibillmaker\Hub\CoreBundle\Security\UserRepository
+    sylius.repository.address.class: Ibillmaker\Hub\CoreBundle\Security\AddressRepository
     ibillmaker_hub_core.router.provider.class: Ibillmaker\Hub\CoreBundle\Repository\RouterProvider
     ibillmaker_hub_core.form.type.class: Ibillmaker\Hub\CoreBundle\Form\Type\RegistrationFormType    
     ibillmaker_hub_core.user.entity.class: Ibillmaker\Hub\CoreBundle\Entity\User
     
     # ibillmaker custom service classes
     ibillmaker_hub_core.service.user.class: Ibillmaker\Hub\CoreBundle\Service\UserService
+    ibillmaker_hub_core.service.address.class: Ibillmaker\Hub\CoreBundle\Service\AddressService
+    ibillmaker_hub_core.service.validation.class: Ibillmaker\Hub\CoreBundle\Service\ValidationService
     ibillmaker_hub_core.service.responseCreate.class: Ibillmaker\Hub\CoreBundle\Service\ResponseCreateService
     
 
@@ -29,7 +32,20 @@ services:
         class: %ibillmaker_hub_core.service.user.class%
         arguments: ["@service_container"]
         
-    ibillmaker.hub.core.service.response_create:
+    ibillmaker.hub.core.service.responseCreate:
         class: %ibillmaker_hub_core.service.responseCreate.class%
         arguments: ["@service_container"]
+    
+    # Address service
+    ibillmaker.hub.core.service.address:
+        class: %ibillmaker_hub_core.service.address.class%
+        arguments: ["@service_container"]
+    
+    # validation service
+    ibillmaker.hub.core.service.validation:
+        class: %ibillmaker_hub_core.service.validation.class%
         
+        
+   # address repository
+    sylius.repository.address:
+        class: %sylius.repository.address.class%

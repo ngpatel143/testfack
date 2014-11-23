@@ -33,6 +33,14 @@ Class UserService
         $result['lastName'] = $user->getLastName();
         $result['email'] = $user->getEmail();
         $result['username'] = $user->getUserName();
+        $result['companyName'] = $user->getCompanyName();
+        $priAddress =  $this->container->get('ibillmaker.hub.core.service.address')->getAddress($user,'pri');
+        $secAddress =  $this->container->get('ibillmaker.hub.core.service.address')->getAddress($user,'sec');
+        if($priAddress){
+            $result = array_merge($result,$priAddress);
+        }else if($secAddress){
+            $result = array_merge($result,$secAddress);
+        }
         return $result;
       }else{
           throw new \Exception('Page Not Found', 404);
@@ -47,13 +55,17 @@ Class UserService
     public function saveUserDetails($userDetails)
     {
         try{
+            
             // here user is a user object.
             $user =   $this->container->get('sylius.repository.user')->findOneBy(array('id'=>$userDetails['id']));
             $user->setFirstName($userDetails['firstName']);
             $user->setLastName($userDetails['lastName']);
             $user->setEmail($userDetails['email']);
             $user->setUserName($userDetails['username']);
-            //$user->setUsernameCanonical($userDetails['username']);
+            $user->setCompanyName($userDetails['companyName']);
+            
+            $priAddress = $this->container->get('ibillmaker.hub.core.service.address')->update($userDetails['p_street'],$userDetails['p_postcode'],$userDetails['p_city'],$userDetails['p_country'],$user,'pri');
+            $priAddress = $this->container->get('ibillmaker.hub.core.service.address')->update($userDetails['s_street'],$userDetails['s_postcode'],$userDetails['s_city'],$userDetails['s_country'],$user,'sec');
             
             $this->container->get('sylius.manager.user')->persist($user);
             $this->container->get('sylius.manager.user')->flush($user);

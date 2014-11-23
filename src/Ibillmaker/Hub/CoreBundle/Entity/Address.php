@@ -20,8 +20,41 @@ use Sylius\Component\Addressing\Model\Address as baseAddress;
 class Address extends baseAddress
 {
 
+    /**
+     * people id (User id/ client Id)
+     * @Type(type="Object", message="User Type Object")
+     */
+    protected $user;
+    
+    /**
+     * type of address (people's primary contact address or secondary)
+     * @Type(type="string", message="it is type of address. ex. primary = pri, secondory = sec")
+     */
+    protected $type;
+    
+    
+    
     public function __construct() {
         parent::__construct();
     }
+    
+    public function getUser(){
+        return $this->user;
+    }
+    
+    public function setUser($user){
+       $this->user = $user;
+       return $this;
+    }
+    
+    public function getType(){
+        return $this->type;
+    }
+    
+    public function setType($type){
+       $this->type = $type;
+       return $this;
+    }
+    
     
 }

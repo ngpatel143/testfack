@@ -116,6 +116,7 @@ sylius_addressing:
     classes:
         address:
             model: Ibillmaker\Hub\CoreBundle\Entity\Address
+            repository: Ibillmaker\Hub\CoreBundle\Repository\AddressRepository
 
 sylius_order:
     classes:

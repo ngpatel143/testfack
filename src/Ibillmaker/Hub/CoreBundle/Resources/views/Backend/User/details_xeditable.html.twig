@@ -86,19 +86,23 @@
                                    </tr>
                                     <tr>
                                         <td><strong>{{ 'sylius.address.street'|trans }}</strong></td>
-                                        <td> <span editable-text="user.p_street" e-name=""  >[[ user.p_street  ]]</span></td>
+                                        <td> <span editable-text="user.p_street" e-name=""  >[[ user.p_street || 'empty' ]]</span></td>
                                     </tr>
                                     <tr>
                                         <td><strong>{{ 'sylius.address.postcode'|trans }}</strong></td>
-                                        <td> <span editable-text="user.p_postcode" e-name=""  >[[ user.p_postcode  ]]</span></td>
+                                        <td> <span editable-text="user.p_postcode" e-name=""  >[[ user.p_postcode || 'empty' ]]</span></td>
                                     </tr>
                                     <tr>
                                         <td><strong>{{ 'sylius.address.city'|trans }}</strong></td>
-                                        <td> <span editable-text="user.p_city" e-name=""  >[[ user.p_city  ]]</span></td>
+                                        <td> <span editable-text="user.p_city" e-name=""  >[[ user.p_city || 'empty' ]]</span></td>
                                     </tr>
                                     <tr>
                                         <td><strong>{{ 'sylius.address.country'|trans }}</strong></td>
-                                        <td> <span editable-select="user.p_country" e-name=""  >[[ user.p_country  ]]</span></td>
+                                        <td>  
+                                            <span editable-select="user.p_country" e-name="p_country"  e-ng-options="g.id as g.name for g in countryList">                          
+                                                [[  showCountry(user.p_country)  ]]
+                                            </span>
+                                        </td>
                                     </tr>
                                    <!-- ###################### Address primary ###################### -->
                                    <tr>
@@ -106,19 +110,20 @@
                                    </tr>
                                     <tr>
                                         <td><strong>{{ 'sylius.address.street'|trans }}</strong></td>
-                                        <td> <span editable-text="user.s_street" e-name=""  >[[ user.s_street  ]]</span></td>
+                                        <td> <span editable-text="user.s_street" e-name="s_street"  >[[ user.s_street || 'empty'  ]]</span></td>
                                     </tr>
                                     <tr>
                                         <td><strong>{{ 'sylius.address.postcode'|trans }}</strong></td>
-                                        <td> <span editable-text="user.s_postcode" e-name=""  >[[ user.s_postcode  ]]</span></td>
+                                        <td> <span editable-text="user.s_postcode" e-name="s_postcode"  >[[ user.s_postcode || 'empty'  ]]</span></td>
                                     </tr>
                                     <tr>
                                         <td><strong>{{ 'sylius.address.city'|trans }}</strong></td>
-                                        <td> <span editable-text="user.s_city" e-name=""  >[[ user.s_city  ]]</span></td>
+                                        <td> <span editable-text="user.s_city" e-name="s_city"  >[[ user.s_city  || 'empty' ]]</span></td>
                                     </tr>
                                     <tr>
                                         <td><strong>{{ 'sylius.address.country'|trans }}</strong></td>
-                                        <td> <span editable-select="user.s_country" e-name=""  >[[ user.s_country  ]]</span></td>
+                                        <td> <span editable-select="user.s_country" e-name="s_country"  e-ng-options="g.id as g.name for g in countryList">
+                                        [[ showCountry(user.s_country) ]]</span></td>
                                     </tr>
                        </tbody>
                    </table>

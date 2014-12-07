@@ -19,3 +19,7 @@ ibillmaker_hub_core_save_user_details:
 ibillmaker_hub_core_create_address:
     path: iauser/address/new
     defaults: { _controller: IbillmakerHubCoreBundle:IAAddress:createAddress }
+
+ibillmaker_hub_core_get_country:
+    path: iauser/address/getcountrylist
+    defaults: { _controller: IbillmakerHubCoreBundle:IAAddress:getCountryList }

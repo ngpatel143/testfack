@@ -158,14 +158,14 @@ class BackendMenuBuilder extends BaseBackendMenuBuilder
             ->setLabel($this->translate(sprintf('sylius.backend.menu.%s.content', $section)))
         ;
 
-        $child->addChild('blocks', array(
-            'route' => 'sylius_backend_block_index',
-            'labelAttributes' => array('icon' => 'glyphicon glyphicon-th-large'),
-        ))->setLabel($this->translate(sprintf('sylius.backend.menu.%s.blocks', $section)));
-        $child->addChild('Pages', array(
-            'route' => 'sylius_backend_page_index',
-            'labelAttributes' => array('icon' => 'glyphicon glyphicon-th-list'),
-        ))->setLabel($this->translate(sprintf('sylius.backend.menu.%s.pages', $section)));
+//        $child->addChild('blocks', array(
+//            'route' => 'sylius_backend_block_index',
+//            'labelAttributes' => array('icon' => 'glyphicon glyphicon-th-large'),
+//        ))->setLabel($this->translate(sprintf('sylius.backend.menu.%s.blocks', $section)));
+//        $child->addChild('Pages', array(
+//            'route' => 'sylius_backend_page_index',
+//            'labelAttributes' => array('icon' => 'glyphicon glyphicon-th-list'),
+//        ))->setLabel($this->translate(sprintf('sylius.backend.menu.%s.pages', $section)));
     }
 
     /**
@@ -274,10 +274,10 @@ class BackendMenuBuilder extends BaseBackendMenuBuilder
             'labelAttributes' => array('icon' => 'glyphicon glyphicon-credit-card'),
         ))->setLabel($this->translate(sprintf('sylius.backend.menu.%s.payment_methods', $section)));
 
-        $child->addChild('exchange_rates', array(
-            'route' => 'sylius_backend_exchange_rate_index',
-            'labelAttributes' => array('icon' => 'glyphicon glyphicon-usd'),
-        ))->setLabel($this->translate(sprintf('sylius.backend.menu.%s.exchange_rates', $section)));
+//        $child->addChild('exchange_rates', array(
+//            'route' => 'sylius_backend_exchange_rate_index',
+//            'labelAttributes' => array('icon' => 'glyphicon glyphicon-usd'),
+//        ))->setLabel($this->translate(sprintf('sylius.backend.menu.%s.exchange_rates', $section)));
 
         $child->addChild('taxation_settings', array(
             'route' => 'sylius_backend_taxation_settings',

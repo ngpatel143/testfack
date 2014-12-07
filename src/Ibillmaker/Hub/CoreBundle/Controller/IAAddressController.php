@@ -67,8 +67,14 @@ class IAAddressController extends Controller
             
             $country = $this->container->get('sylius.repository.country')->findAll(array());
 
-            $addressDetail = $request->request->all();
-            $addressDetailResponse = $this->container->get('ibillmaker.hub.core.service.address')->createAddress($addressDetail);
+            $street = $request->request->get('street');
+            $postcode = $request->request->get('postcode');
+            $countryId = $request->request->get('countryId');
+            $userId = $request->request->get('userId');
+            $city = $request->request->get('city');
+            $type = $request->request->get('type');
+            $user =   $this->container->get('sylius.repository.user')->findOneBy(array('id'=> $userId));
+            $addressDetailResponse = $this->container->get('ibillmaker.hub.core.service.address')->createAddress($street,$postcode,$city,$countryId,$user,$type);
             
             return $addressDetailResponse;
            
@@ -78,6 +84,17 @@ class IAAddressController extends Controller
             $responseResult = $this->container->get('ibillmaker.hub.core.service.response_create')->create($code, $ex->getMessage(), NULL); 
             return $responseResult;
 
+        }
+    }
+    public function getCountryListAction(Request $request){
+        try{
+           $countryList =  $this->container->get('ibillmaker.hub.core.service.address')->getCountryList();
+
+           return $this->container->get('ibillmaker.hub.core.service.response_create')->create(null,null,$countryList);
+        } catch (Exception $ex) {
+            $code = ($ex->getCode() > 0 && $ex->getCode() < 500) ? $ex->getCode() : 500;
+            $responseResult = $this->container->get('ibillmaker.hub.core.service.response_create')->create($code, $ex->getMessage(), NULL); 
+            return $responseResult;
         }
     }
         

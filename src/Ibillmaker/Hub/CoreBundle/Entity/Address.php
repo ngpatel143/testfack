@@ -55,6 +55,5 @@ class Address extends baseAddress
        $this->type = $type;
        return $this;
     }
-    
-    
+   
 }

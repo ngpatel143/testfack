@@ -44,7 +44,9 @@ parameters:
     phpcr_workspace: default
     phpcr_user: admin
     phpcr_pass: admin
-    
     sylius.listener.image_upload.class: Ibillmaker\Hub\CoreBundle\EventListener\ImageUploadListener
-    sylius.menu_builder.backend.class:  Ibillmaker\Hub\CoreBundle\Menu\BackendMenuBuilder
+    sylius.menu_builder.backend.class: Ibillmaker\Hub\CoreBundle\Menu\BackendMenuBuilder
     sylius.form.type.user_filter.class: Ibillmaker\Hub\CoreBundle\Form\Type\Filter\UserFilterType
+
+    sylius.currency_importer.open_exchange_rates: EDITME
+    sylius.uploader.filesystem: sylius_image

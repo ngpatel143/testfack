@@ -159,3 +159,15 @@ sylius_resource:
             classes:
                 model: Symfony\Cmf\Bundle\ContentBundle\Doctrine\Phpcr\StaticContent
                 repository: Sylius\Bundle\CoreBundle\Repository\PageRepository
+
+sylius_api:
+    classes:
+        api_user:
+            model: Ibillmaker\Hub\CoreBundle\Entity\User
+            
+sylius_content:
+    driver: doctrine/phpcr-odm
+    classes:
+        static_content:
+            repository: Sylius\Bundle\ContentBundle\Doctrine\ODM\PHPCR\StaticContentRepository            
+                        

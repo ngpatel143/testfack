@@ -12,10 +12,12 @@ class ResponseCreateService {
     }
 
     // generete Response
-    public function create($status_code, $status_message, $result = NULL, $jsonp = NULL) 
+    public function create($status_code = NULL, $status_message = NULL, $result = NULL, $jsonp = NULL) 
     {
-
-        $responseArrayStatus = array(
+        if(empty($status_code)){
+             $response = new Response(json_encode($result));
+        }else{
+            $responseArrayStatus = array(
             'code' => $status_code,
             'message' => $status_message
         );
@@ -26,6 +28,8 @@ class ResponseCreateService {
         } else {
             $response = new Response(json_encode($responseArrayStatus));
         }
+        }
+        
         
         $response->headers->set('Access-Control-Allow-Origin', '*');
         $response->headers->set('Content-Type', 'application/javascript');

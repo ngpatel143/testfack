@@ -22,6 +22,41 @@ Class AddressService
     }
     
     /**
+    * @access public
+     * @param string $street address streat
+     * @param int $postCode address post code
+     * @param string $city  city of address
+     * @param int $countryId country list id
+     * @param Object $user User class object. address for which client
+     * @param string $type type of address pri,sec or null.
+     * @return true or exception 
+     */
+    public function createAddress($street,$postCode,$city,$countryId,UserInterface $user,$type){
+        try{
+                $validationAddress = $this->validationAddress($street,$postCode,$city,$countryId,$type);
+                $country = $this->container->get('sylius.repository.country')->findOneBy(array('id'=>$countryId));
+                if(empty($user)){
+                   throw new \Exception('User Not found', 401); 
+                }
+                
+                    $address = new Address();            
+                    $address->setStreet($street);
+                    $address->setPostcode($postCode);
+                    $address->setCountry($country);
+                    $address->setCity($city);
+                    $address->setUser($user);                
+                    $address->setType($type);                
+                    $this->container->get('sylius.manager.address')->persist($address);
+                    $this->container->get('sylius.manager.address')->flush($address);
+                    
+                    return $this->container->get('ibillmaker.hub.core.service.responseCreate')->create('200','address successfully added.');
+                
+        } catch (\Exception $ex) {
+          throw new \Exception($ex->getMessage(), $ex->getCode());
+        }
+    }    
+    
+    /**
      * @param integer $userId get User Details. ex. clients details.
      * @return JSON it will returns users details to display in view.
      */
@@ -29,11 +64,14 @@ Class AddressService
     {
         // here address is a address object.
         $address =   $this->container->get('sylius.repository.address')->findOneBy(array('user'=>$user,'type'=>$type));
+        $typePre = ($type == 'pri')?'p_':'s_';
         if($address){
-          $result['p_street'] = $address->getStreet();
-          $result['p_postcode'] = $address->getPostCode();
-          $result['p_city'] = $address->getCity();
-          $result['p_country'] = $this->getCountryList();
+          $result[$typePre.'street'] = $address->getStreet();
+          $result[$typePre.'postcode'] = $address->getPostCode();
+          $result[$typePre.'city'] = $address->getCity();
+          $result[$typePre.'country'] = $address->getCountry()->getId();
+          $country = $this->container->get('sylius.repository.country')->findOneBy(array('id'=>$address->getCountry()->getId()));    
+          $result[$typePre.'country_name'] =  $country->getName();
           return $result;
         }else{
             //throw new \Exception('Page Not Found', 404);
@@ -42,14 +80,24 @@ Class AddressService
     }
     
     /**
-     * @param array $addressDetails it will update users details. ex. clients, vendors details 
+     * @param string $street address streat
+     * @param int $postCode address post code
+     * @param string $city  city of address
+     * @param int $countryId country list id
+     * @param Object $user User class object. address for which client
+     * @param string $type type of address pri,sec or null.
      * @return JSON this method will returns the HTTP Response 
      */
-    public function update($street,$postCode,$city,$countryId,UserInterface $user,$type)
+    public function updateAddress($street,$postCode,$city,$countryId,UserInterface $user,$type)
     {
         try{
+           
+           //$validationAddress = $this->validationAddress($street,$postCode,$city,$countryId,$type);
             // here address is a address object.
             $address =   $this->container->get('sylius.repository.address')->findOneBy(array('user'=>$user,'type'=>$type));
+            if(empty($address)){
+               return $this->createAddress($street, $postCode, $city, $countryId, $user, $type);
+            }
             // country object.
             if($countryId){
                 $country = $this->container->get('sylius.repository.country')->findOneBy(array('id'=>$countryId));    
@@ -67,49 +115,27 @@ Class AddressService
             throw new \Exception($ex->getMessage(), $ex->getCode());
         }
     }
-    /**
-     * @param array $postData list of all the fields parameters like street, postCode, country, user.
-     * @access public
-     * 
-     */
-    public function createAddress($postData){
-        try{
-                $validationAddress = $this->validationAddress($postData);
-                $country = $this->container->get('sylius.repository.country')->findOneBy(array('id'=>$postData['countryId']));
-                $user = $this->container->get('sylius.repository.user')->findOneBy(array('id'=>$postData['userId']));
-                if(empty($user)){
-                   throw new Exception('User Not found', 401); 
-                }
-                if($validationAddress){
-                    $address = new Address();            
-                    $address->setStreet($postData['street']);
-                    $address->setPostcode($postData['postCode']);
-                    $address->setCountry($country);
-                    $address->setCity($postData['city']);
-                    $address->setUser($user);                
-                    $this->container->get('sylius.manager.address')->persist($address);
-                    $this->container->get('sylius.manager.address')->flush($address);
-                    
-                    return $this->container->get('ibillmaker.hub.core.service.responseCreate')->create('200','address successfully added.');
-                }
-        } catch (\Exception $ex) {
-          throw new \Exception($ex->getMessage(), $ex->getCode());
-        }
-    }
     
-    public function validationAddress($postData){
+   
+    
+    public function validationAddress($street,$postCode,$city,$countryId,$type){
+        $postData['street'] = $street;
+        $postData['postCode'] = $postCode;
+        $postData['city'] = $city;
+        $postData['countryId'] =$countryId;
+        $postData['type'] = $type;
+        
         $validation = array(
                 'street' => 'words',
                 'postCode' => 'number',
                 'countryId' => 'number',
                 'city' => 'words',
-                'userId' => 'number'
+                'type' => 'words'
             );
 
-            $required = array('street','postCode','countryId','userId','city');
-
+            $required = array('type');
             $validationRepository = $this->container->get('ibillmaker.hub.core.service.validation');
-            $validationRepository->init($validation, $required);
+            $validationRepository->init($validation);
 
             $result = $validationRepository->validate($postData);
             if ($result !== TRUE) {
@@ -122,7 +148,7 @@ Class AddressService
         $dbStorage = $this->container->get('doctrine.dbal.default_connection');
         $countryList = $dbStorage->fetchAll("select id , name from sylius_country");
         
-        return json_encode($countryList);
+        return $countryList;
     }
 
 }

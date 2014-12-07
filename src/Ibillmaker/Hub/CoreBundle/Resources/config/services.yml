@@ -40,7 +40,7 @@ services:
     ibillmaker.hub.core.service.address:
         class: %ibillmaker_hub_core.service.address.class%
         arguments: ["@service_container"]
-    
+       
     # validation service
     ibillmaker.hub.core.service.validation:
         class: %ibillmaker_hub_core.service.validation.class%

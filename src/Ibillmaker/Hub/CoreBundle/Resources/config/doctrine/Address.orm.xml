@@ -27,6 +27,12 @@
             <attribute-override name="city">   
                  <field column="city" type="string" nullable="true" />
             </attribute-override>
+            <attribute-override name="street">   
+                 <field column="street" type="string" nullable="true" />
+            </attribute-override>
+            <attribute-override name="postcode">   
+                 <field column="postcode" type="string" nullable="true" />
+            </attribute-override>
             
         </attribute-overrides>    
         

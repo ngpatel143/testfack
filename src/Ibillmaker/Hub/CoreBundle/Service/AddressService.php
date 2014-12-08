@@ -148,6 +148,9 @@ Class AddressService
         $dbStorage = $this->container->get('doctrine.dbal.default_connection');
         $countryList = $dbStorage->fetchAll("select id , name from sylius_country");
         
+        foreach($countryList as $key => $country){
+            $countryList[$key]['id'] = (int)$country['id'];
+        }
         return $countryList;
     }
 

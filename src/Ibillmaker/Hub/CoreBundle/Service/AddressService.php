@@ -33,19 +33,25 @@ Class AddressService
      */
     public function createAddress($street,$postCode,$city,$countryId,UserInterface $user,$type){
         try{
+                $address = new Address();            
                 $validationAddress = $this->validationAddress($street,$postCode,$city,$countryId,$type);
-                $country = $this->container->get('sylius.repository.country')->findOneBy(array('id'=>$countryId));
+                
+                if(!empty($countryId)){
+                    $country = $this->container->get('sylius.repository.country')->findOneBy(array('id'=>$countryId));
+                    $address->setCountry($country);
+                }
+                
                 if(empty($user)){
                    throw new \Exception('User Not found', 401); 
                 }
                 
-                    $address = new Address();            
+                   
                     $address->setStreet($street);
                     $address->setPostcode($postCode);
-                    $address->setCountry($country);
+                
                     $address->setCity($city);
                     $address->setUser($user);                
-                    $address->setType($type);                
+                    $address->setType($type); 
                     $this->container->get('sylius.manager.address')->persist($address);
                     $this->container->get('sylius.manager.address')->flush($address);
                     

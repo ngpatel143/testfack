@@ -26,7 +26,8 @@ Class UserService
      */
     public function getUserDetails($userId)
     {
-
+        $this->container->get("logger")->info("getUserDetails called with id = $userId");
+        
       $user =   $this->container->get('sylius.repository.user')->findOneBy(array('id'=>$userId));
       if($user){
         $result['firstName'] = $user->getFirstName();
@@ -73,12 +74,13 @@ Class UserService
             $user->setEmail($userDetails['email']);
             $user->setUserName($userDetails['username']);
             $user->setCompanyName($userDetails['companyName']);
+            $this->container->get('sylius.manager.user')->persist($user);
+            $this->container->get('sylius.manager.user')->flush($user);
             
             $this->container->get('ibillmaker.hub.core.service.address')->updateAddress($userDetails['p_street'],$userDetails['p_postcode'],$userDetails['p_city'],$userDetails['p_country'],$user,'pri');
             $this->container->get('ibillmaker.hub.core.service.address')->updateAddress($userDetails['s_street'],$userDetails['s_postcode'],$userDetails['s_city'],$userDetails['s_country'],$user,'sec');
            
-            $this->container->get('sylius.manager.user')->persist($user);
-            $this->container->get('sylius.manager.user')->flush($user);
+  
             $this->container->get('ibillmaker.hub.core.service.response_create')->create(200, 'user successfully updated', NULL); 
         }  catch (\Exception $e){
             throw new \Exception($e->getMessage(), $e->getCode());

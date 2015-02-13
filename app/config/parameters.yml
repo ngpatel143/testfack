@@ -50,3 +50,16 @@ parameters:
     sylius.promotion.item_based: false
     sylius.order.allow_guest_order: false
     sylius.order.pending.duration: '3 hours'
+    
+    sylius.listener.image_upload.class: Ibillmaker\Hub\CoreBundle\EventListener\ImageUploadListener
+    sylius.menu_builder.backend.class: Ibillmaker\Hub\CoreBundle\Menu\BackendMenuBuilder
+    sylius.form.type.user_filter.class: Ibillmaker\Hub\CoreBundle\Form\Type\Filter\UserFilterType
+    
+    sylius.model.user.class: Ibillmaker\Hub\CoreBundle\Entity\User
+    sylius.controller.user.class: Ibillmaker\Hub\CoreBundle\Controller\UserController
+    sylius.repository.user.class: Ibillmaker\Hub\CoreBundle\Repository\UserRepository
+    
+    sylius.model.product.class: Ibillmaker\Hub\CoreBundle\Entity\Product
+    sylius.controller.product.class: Ibillmaker\Hub\CoreBundle\Controller\ProductController
+    sylius.repository.product.class: Ibillmaker\Hub\CoreBundle\Repository\ProductRepository
+    

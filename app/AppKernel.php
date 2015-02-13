@@ -7,7 +7,7 @@ class AppKernel extends Kernel
     public function registerBundles()
     {
         $bundles = array(
-            // Your bundles here!
+            new Ibillmaker\Hub\CoreBundle\IbillmakerHubCoreBundle()
         );
 
         if (in_array($this->environment, array('dev', 'test'))) {
